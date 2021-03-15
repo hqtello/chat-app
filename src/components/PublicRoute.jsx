@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
 function PublicRoute({ component: Component, ...props }) {
-    const profile = true
+    const profile = false
 
     if (profile)
         return <Redirect to='/' />
