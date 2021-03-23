@@ -3,7 +3,15 @@
     "profiles": {
       "$uid": {
         ".read": "$uid === auth.uid",
-        ".write": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "rooms": {
+      ".read": "auth !== null",
+      ".write": "auth !== null",
+      "$room_id": {
+        ".read": "auth !== null",
+        ".write": "auth !== null"
       }
     },
     ".read": false,
