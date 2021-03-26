@@ -14,7 +14,7 @@ function ChatTop() {
   return (
     <>
       <div className="d-flex justify-content-between align-items-center">
-        <h4>
+        <h4 className="text-disapear d-flex align-items-center">
           <Icon
             componentClass={Link}
             to="/"
