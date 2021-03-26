@@ -55,7 +55,7 @@ export const ProfileProvider = ({ children }) => {
         // and `false` when disconnected.
         database.ref('.info/connected').on('value', snapshot => {
           // If we're not currently connected, don't do anything.
-          if (snapshot.val() === false) {
+          if (!!snapshot.val() === false) {
             return;
           }
 
