@@ -10,6 +10,7 @@ import EditRoomBtnDrawer from './EditRoomBtnDrawer';
 
 function ChatTop() {
   const name = useCurrentRoom(value => value.name);
+  const isAdmin = useCurrentRoom(value => value.isAdmin);
   const isMobile = useMediaQuery('(max-width: 992px)');
 
   return (
@@ -29,7 +30,7 @@ function ChatTop() {
           />
         </h4>
         <ButtonToolbar className="ws-nowrap">
-          <EditRoomBtnDrawer />
+          {isAdmin && <EditRoomBtnDrawer />}
         </ButtonToolbar>
       </div>
 

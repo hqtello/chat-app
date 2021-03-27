@@ -9,6 +9,11 @@ export function getNameInitials(name) {
     : `${firstNameInitial}`;
 }
 
+// To get the admin user in each room
+export function transformToArr(snapshotValue) {
+  return snapshotValue ? Object.keys(snapshotValue) : [];
+}
+
 export function transformToArrWithId(snapshotValue) {
   return snapshotValue
     ? Object.keys(snapshotValue).map(roomId => {
