@@ -7,12 +7,14 @@ import PresenceDot from '../../PresenceDot';
 import ProfileInfoBtnModal from './ProfileInfoBtnModal';
 import { useCurrentRoom } from '../../../context/current-room-context';
 import { auth } from '../../../misc/firebase';
-import { useHover } from '../../../misc/custom-hooks';
+import { useHover, useMediaQuery } from '../../../misc/custom-hooks';
+import IconBtnControl from './IconBtnControl';
 
-function MessageItem({ message, handleAdmin }) {
-  const { author, createdAt, text } = message;
+function MessageItem({ message, handleAdmin, handleLike }) {
+  const { author, createdAt, text, likes, likeCount } = message;
 
   const [selfRef, isHovered] = useHover();
+  const isMobile = useMediaQuery('(max-width: 992px)');
 
   const isAdmin = useCurrentRoom(value => value.isAdmin);
   const admins = useCurrentRoom(value => value.admins);
@@ -20,6 +22,9 @@ function MessageItem({ message, handleAdmin }) {
   const isMsgAuthorAdmin = admins.includes(author.uid);
   const isAuthor = auth.currentUser.uid === author.uid;
   const canGrantAdmin = isAdmin && !isAuthor;
+
+  const canShowIcons = isMobile || isHovered;
+  const isLiked = likes && Object.keys(likes).includes(auth.currentUser.uid);
 
   return (
     <li
@@ -48,6 +53,14 @@ function MessageItem({ message, handleAdmin }) {
         <TimeAgo
           datetime={createdAt}
           className="font-normal text-black-45 ml-2"
+        />
+        <IconBtnControl
+          isVisible={canShowIcons}
+          iconName="heart"
+          tooltip="Like this message"
+          onClick={() => handleLike(message.id)}
+          badgeContent={likeCount}
+          {...(isLiked ? { color: 'red' } : {})}
         />
       </div>
       <div>
